@@ -1,5 +1,6 @@
 # FFmpeg-Android
 [ ![Download](https://api.bintray.com/packages/bravobit/Android-FFmpeg/android-ffmpeg/images/download.svg) ](https://bintray.com/bravobit/Android-FFmpeg/android-ffmpeg/_latestVersion)
+[ ![Buy us a beer](https://pay.bravobit.nl/assets/bravopay.svg) ](https://pay.bravobit.nl/?description=some%20beers)
 
 FFMpeg/FFprobe compiled for Android.
 Execute FFmpeg & FFprobe commands with ease in your Android project.
@@ -44,7 +45,7 @@ FFmpeg in this project was built with the following libraries:
 Include the dependency
 ```gradle
 dependencies {
-    implementation 'nl.bravobit:android-ffmpeg:1.1.5'
+    implementation 'nl.bravobit:android-ffmpeg:1.1.7'
 }
 ```
 
@@ -93,6 +94,8 @@ FFtask ffTask = ffmpeg.execute( ... )
 
 ffTask.sendQuitSignal();
 ```
+
+_NOTE: This will result in `onFailure` being called instead of `onSuccess`._
 
 ### Check if FFprobe is supported
 To check whether FFprobe is available on your device you can use the following method.
