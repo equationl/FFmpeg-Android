@@ -121,6 +121,23 @@ public class FFprobe implements FFbinaryInterface {
         }
     }
 
+    @Override
+    public boolean execute(Map<String, String> environmentVars, String[] cmd) {
+        if (cmd.length != 0) {
+            String[] ffprobeBinary = new String[]{FileUtils.getFFprobe(context.provide()).getAbsolutePath()};
+            String[] command = concatenate(ffprobeBinary, cmd);
+            FFcommandExecuteSynchronous synchronous = new FFcommandExecuteSynchronous(command, environmentVars, timeout);
+            return synchronous.execute();
+        } else {
+            throw new IllegalArgumentException("shell command cannot be empty");
+        }
+    }
+
+    @Override
+    public boolean execute(String[] cmd) {
+        return execute(null, cmd);
+    }
+
     private static <T> T[] concatenate(T[] a, T[] b) {
         int aLen = a.length;
         int bLen = b.length;

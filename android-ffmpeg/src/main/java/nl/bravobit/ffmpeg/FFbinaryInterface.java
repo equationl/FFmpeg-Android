@@ -24,6 +24,23 @@ interface FFbinaryInterface {
     FFtask execute(String[] cmd, FFcommandExecuteResponseHandler ffcommandExecuteResponseHandler);
 
     /**
+     * Executes a command synchronously
+     *
+     * @param environmentVars                 Environment variables
+     * @param cmd                             command to execute
+     * @return true, if command executed successfully, false otherwise
+     */
+    boolean execute(Map<String, String> environmentVars, String[] cmd);
+
+    /**
+     * Executes a command synchronously
+     *
+     * @param cmd                             command to execute
+     * @return true, if command executed successfully, false otherwise
+     */
+    boolean execute(String[] cmd);
+
+    /**
      * Checks if FF binary is supported on this device
      *
      * @return true if FF binary is supported on this device
