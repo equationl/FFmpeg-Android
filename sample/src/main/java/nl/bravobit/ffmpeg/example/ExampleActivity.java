@@ -2,11 +2,11 @@ package nl.bravobit.ffmpeg.example;
 
 import android.os.Bundle;
 import android.os.Handler;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import nl.bravobit.ffmpeg.ExecuteBinaryResponseHandler;
 import nl.bravobit.ffmpeg.FFmpeg;
-import nl.bravobit.ffmpeg.FFprobe;
 import nl.bravobit.ffmpeg.FFtask;
 import timber.log.Timber;
 
@@ -29,14 +29,6 @@ public class ExampleActivity extends AppCompatActivity {
             Timber.e("ffmpeg not supported!");
         }
 
-        if (FFprobe.getInstance(this).isSupported()) {
-            // ffprobe is supported
-            versionFFprobe();
-        } else {
-            // ffprobe is not supported
-            Timber.e("ffprobe not supported!");
-        }
-
     }
 
     private void versionFFmpeg() {
@@ -54,28 +46,13 @@ public class ExampleActivity extends AppCompatActivity {
 
     }
 
-    private void versionFFprobe() {
-        Timber.d("version ffprobe");
-        FFprobe.getInstance(this).execute(new String[]{"-version"}, new ExecuteBinaryResponseHandler() {
-            @Override
-            public void onSuccess(String message) {
-                Timber.d(message);
-            }
-
-            @Override
-            public void onProgress(String message) {
-                Timber.d(message);
-            }
-        });
-    }
-
     private void ffmpegTestTaskQuit() {
         String[] command = {"-i", "input.mp4", "output.mov"};
 
         final FFtask task = FFmpeg.getInstance(this).execute(command, new ExecuteBinaryResponseHandler() {
             @Override
             public void onStart() {
-                Timber.d( "on start");
+                Timber.d("on start");
             }
 
             @Override
@@ -109,7 +86,7 @@ public class ExampleActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Timber.d( "STOPPING THE RENDERING!");
+                Timber.d("STOPPING THE RENDERING!");
                 task.sendQuitSignal();
             }
         }, 8000);

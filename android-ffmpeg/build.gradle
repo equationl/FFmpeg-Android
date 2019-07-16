@@ -5,7 +5,7 @@ ext {
     libraryName = 'Android FFmpeg'
     artifact = 'android-ffmpeg'
 
-    libraryDescription = 'FFmpeg/FFprobe compiled for Android. Execute FFmpeg and FFprobe commands with ease in your Android project.'
+    libraryDescription = 'FFmpeg compiled for Android. Execute FFmpeg commands with ease in your Android project.'
 
     siteUrl = 'https://github.com/bravobit/FFmpeg-Android'
     gitUrl = 'https://github.com/bravobit/FFmpeg-Android.git'

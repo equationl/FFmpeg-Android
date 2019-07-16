@@ -2,8 +2,8 @@
 [ ![Download](https://api.bintray.com/packages/bravobit/Android-FFmpeg/android-ffmpeg/images/download.svg) ](https://bintray.com/bravobit/Android-FFmpeg/android-ffmpeg/_latestVersion)
 [ ![Buy us a beer](https://pay.bravobit.nl/assets/bravopay.svg) ](https://pay.bravobit.nl/?description=some%20beers)
 
-FFMpeg/FFprobe compiled for Android.
-Execute FFmpeg & FFprobe commands with ease in your Android project.
+FFMpeg compiled for Android.
+Execute FFmpeg commands with ease in your Android project.
 
 ## About
 This project is a continued fork of [FFmpeg Android Java](https://github.com/WritingMinds/ffmpeg-android-java) by WritingMinds.
@@ -35,7 +35,6 @@ FFmpeg in this project was built with the following libraries:
 ### Features
 - Uses the latest FFmpeg release `n4.0-39-gda39990`
 - Uses native CPU capabilities on ARM architectures
-- FFprobe is bundled in this library too
 - Enabled network capabilities
 - Multithreading
 
@@ -96,42 +95,6 @@ ffTask.sendQuitSignal();
 ```
 
 _NOTE: This will result in `onFailure` being called instead of `onSuccess`._
-
-### Check if FFprobe is supported
-To check whether FFprobe is available on your device you can use the following method.
-```java
-if (FFprobe.getInstance(this).isSupported()) {
-  // ffprobe is supported
-} else {
-  // ffprobe is not supported
-}
-```
-This is all you have to do to load the FFprobe library.
-
-### Run FFprobe command
-In this sample code we will run the ffprobe -version command.
-```java
-FFprobe ffprobe = FFprobe.getInstance(context);
-// to execute "ffprobe -version" command you just need to pass "-version"
-ffprobe.execute(cmd, new ExecuteBinaryResponseHandler() {
-
-    @Override
-    public void onStart() {}
-
-    @Override
-    public void onProgress(String message) {}
-
-    @Override
-    public void onFailure(String message) {}
-
-    @Override
-    public void onSuccess(String message) {}
-
-    @Override
-    public void onFinish() {}
-
-});
-```
 
 ## Special Thanks To
 - [hiteshsondhi88](https://github.com/hiteshsondhi88)
