@@ -1,105 +1,23 @@
 # FFmpeg-Android
-[ ![Download](https://api.bintray.com/packages/bravobit/Android-FFmpeg/android-ffmpeg/images/download.svg) ](https://bintray.com/bravobit/Android-FFmpeg/android-ffmpeg/_latestVersion)
-[ ![Buy us a beer](https://pay.bravobit.nl/assets/bravopay.svg) ](https://pay.bravobit.nl/?description=some%20beers)
+This fork contains 64-bit binaries for FFmpeg as well as 32-bit ones.
+For original implementation, refer to https://github.com/bravobit/FFmpeg-Android
 
-FFMpeg compiled for Android.
-Execute FFmpeg commands with ease in your Android project.
+To include this library to your project, do following (cheers to https://github.com/stanchovy for describing it):
 
-## About
-This project is a continued fork of [FFmpeg Android Java](https://github.com/WritingMinds/ffmpeg-android-java) by WritingMinds.
-This fork fixes the `CANNOT LINK EXECUTABLE ffmpeg: has text relocations` issue on x86 devices along with some other bugfixes, new features and the newest FFmpeg builds.
+- git clone project into your local computer
 
-### Architectures
-Bravobit FFmpeg-Android runs on the following architectures:
-- armv7
-- armv7-neon
-- armv8
-- x86
-- x86_64
+- open the project in Android Studio and do Build-> Build Project
 
-### FFmpeg build
-FFmpeg in this project was built with the following libraries:
-- x264 `r2851 ba24899`
-- libpng `1.6.21`
-- freetype2 `2.8.1`
-- libmp3lame `3.100`
-- libvorbis `1.3.5`
-- libvpx `v1.6.1-1456-g7d1bf5d`
-- libopus `1.2.1`
-- fontconfig `2.11.94`
-- libass `0.14.0`
-- fribidi `0.19.7`
-- expat `2.1.0`
-- fdk-aac `0.1.6`
+- Look for the resulting aar file: android-ffmpeg/build/outputs/aar/android-ffmpeg-release.aar
 
-### Features
-- Uses the latest FFmpeg release `n4.0-39-gda39990`
-- Uses native CPU capabilities on ARM architectures
-- Enabled network capabilities
-- Multithreading
+- Open your project in Android Studio. File -> Project Structure. In the new window, select Modules -> (+) to add a new module. Select the aar file from step 3 and add it.
 
-## Usage
+- Adjust your settings.gradle file include line to include ':android-ffmpeg-release'. For example include ':app' ':android-ffmpeg-release'
+Go to your app level build.gradle and add the following line to your dependencies { ... } section: compile project(path: ':android-ffmpeg-release', configuration: 'default')
 
-### Getting Started
-Include the dependency
-```gradle
-dependencies {
-    implementation 'nl.bravobit:android-ffmpeg:1.1.7'
-}
-```
+You can now successfully build your project and add the library to your Android code, e.g. import nl.bravobit.ffmpeg.FFmpeg;
 
-### Check if FFmpeg is supported
-To check whether FFmpeg is available on your device you can use the following method.
-```java
-if (FFmpeg.getInstance(this).isSupported()) {
-  // ffmpeg is supported
-} else {
-  // ffmpeg is not supported
-}
-```
-This is all you have to do to load the FFmpeg library.
 
-### Run FFmpeg command
-In this sample code we will run the ffmpeg -version command.
-```java
-FFmpeg ffmpeg = FFmpeg.getInstance(context);
-  // to execute "ffmpeg -version" command you just need to pass "-version"
-ffmpeg.execute(cmd, new ExecuteBinaryResponseHandler() {
+Steps 4-7 are explained in more detail here: https://stackoverflow.com/questions/51141190/how-to-add-and-use-an-aar-in-androidstudio-project
 
-    @Override
-    public void onStart() {}
-
-    @Override
-    public void onProgress(String message) {}
-
-    @Override
-    public void onFailure(String message) {}
-
-    @Override
-    public void onSuccess(String message) {}
-
-    @Override
-    public void onFinish() {}
-
-});
-```
-
-### Stop (or Quit) the FFmpeg process
-If you want to stop the running FFmpeg process, simply call `.sendQuitSignal()` on the `FFtask` that is running:
-
-```java
-FFmpeg ffmpeg = FFmpeg.getInstance(context);
-FFtask ffTask = ffmpeg.execute( ... )
-
-ffTask.sendQuitSignal();
-```
-
-_NOTE: This will result in `onFailure` being called instead of `onSuccess`._
-
-## Special Thanks To
-- [hiteshsondhi88](https://github.com/hiteshsondhi88)
-- [diegoperini](https://github.com/diegoperini)
-
-## Licensing
-- [Library license](https://github.com/bravobit/FFmpeg-Android/blob/master/LICENSE)
-- [FFmpeg license](https://www.ffmpeg.org/legal.html)
+Finally, you can verify the whole 64-bit issue by going to Build -> Generate Signed Bundle / APK and building your APK. Then Select Build -> Analyze APK and then selecting your newly generated APK; you should be able to browse and now see a folder structure with /assets/x86_64/ffmpeg and /assets/arm64-v8a/ffmpeg which indicate that you're now including a 64-bit ffmpeg version in your apk that you will eventually be submitting to the Play Store, complying with the new mandate for 64-bit builds.
