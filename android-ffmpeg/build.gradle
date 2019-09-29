@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 ext {
-    publishedGroupId = 'nl.bravobit'
+    publishedGroupId = 'com.bravobit'
     libraryName = 'Android FFmpeg'
     artifact = 'android-ffmpeg'
 
@@ -14,7 +14,7 @@ ext {
 
     developerId = 'Bravobit'
     developerName = 'Bravobit'
-    developerEmail = 'info@bravobit.nl'
+    developerEmail = 'info@bravobit.com'
 
     licenseName = 'GNU General Public License v3.0'
     licenseUrl = 'https://github.com/bravobit/FFmpeg-Android/blob/master/LICENSE'

@@ -1,12 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="nl.bravobit.ffmpeg.example">
+    package="com.equationl.ffmpeg.example">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".FFmpegExample"
+        android:name="com.equationl.ffmpeg.example.FFmpegExample"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ExampleActivity">
+        <activity android:name="com.equationl.ffmpeg.example.ExampleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
