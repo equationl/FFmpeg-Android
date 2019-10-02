@@ -10,8 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 import com.equationl.ffmpeg.ExecuteBinaryResponseHandler;
-import com.equationl.ffmpeg.FFbinaryInterface;
-import com.equationl.ffmpeg.FFdownloadFileInterface;
+import com.equationl.ffmpeg.FFcheckFileListener;
 import com.equationl.ffmpeg.FFmpeg;
 import com.equationl.ffmpeg.FFtask;
 import timber.log.Timber;
@@ -30,45 +29,54 @@ public class ExampleActivity extends AppCompatActivity {
 
         fFmpeg = FFmpeg.getInstance(this);
 
-        fFmpeg.setFdownloadFileInterface(new FFdownloadFileInterface() {
+        fFmpeg.setFFcheckFileListener(new FFcheckFileListener() {
             @Override
-            public void startDownload(String prefix, FFbinaryInterface fFbinaryInterface) {
-                Timber.i("start download ffmpeg!");
-                //Download the file then call FFmpegFileDownloadSuccessCallback with this file
-
-                //EXAMPLE:
-                File dir = Environment.getExternalStorageDirectory();//FIXME need permission
-                File file = new File(dir, "ffmpeg");
-                //END EXAMPLE
-
-                fFbinaryInterface.FFmpegFileDownloadSuccessCallback(file);  //download finish
-            }
-
-            @Override
-            public void copyFileFail(IOException e) {
+            public void onCopyFileFail(IOException e) {
                 Timber.e(e);
             }
 
             @Override
-            public void allFinish() {
-                versionFFmpeg();
+            public void onAllFinish() {
+
             }
 
             @Override
-            public void verifyFileFail() {
+            public void onVerifyFileFail() {
                 Timber.e("check file fail!");
             }
         });
 
-        if (fFmpeg.isSupported() && fFmpeg.isFFmpegExist()) {
-            // ffmpeg is supported
-            versionFFmpeg();
-            //ffmpegTestTaskQuit();
-        } else {
-            // ffmpeg is not supported
-            Timber.e("ffmpeg not supported or not exist!");
+        if (fFmpeg.isSupported()) {
+            //check if support
+            if (fFmpeg.isFFmpegExist()) {
+                //check if ffmpeg file exist
+                //all good, begin use
+                versionFFmpeg();
+            }
+            else {
+                //begin download ffmpeg
+                String prefix = fFmpeg.getPrefix();
+                File downFile = downloadFile(prefix);
+                //apply download file to application
+                fFmpeg.setFFmpegFile(downFile);
+                //just for case, check again
+                if (fFmpeg.isFFmpegExist()) {
+                    //all good, use it
+                    versionFFmpeg();
+                }
+            }
+        }
+        else {
+            //well, not support
+            Timber.i("ffmpeg not support!");
         }
 
+    }
+
+    private File downloadFile(String prefix) {
+        //For example
+        File dir = Environment.getExternalStorageDirectory();//FIXME need permission
+        return new File(dir, "ffmpeg");
     }
 
     private void versionFFmpeg() {

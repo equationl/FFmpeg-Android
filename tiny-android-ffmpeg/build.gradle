@@ -1,14 +1,13 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 28
 
     defaultConfig {
-        applicationId "com.bravobit.ffmpeg.example"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0.1"
+        versionCode 19
+        versionName "1.1.9"
     }
 
     compileOptions {
@@ -22,17 +21,26 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //implementation 'androidx.appcompat:appcompat:1.0.2'
+}
 
-    // Android libraries
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
 
-    // Misc
-    implementation 'com.jakewharton.timber:timber:4.7.1'
+apply plugin: 'com.novoda.bintray-release'
 
-    // FFmpeg project
-    implementation project(':tiny-android-ffmpeg')
+publish {
+    userOrg = 'likehide'
+    groupId = 'com.equationl.ffmpeg'
+    artifactId = 'tiny-android-ffmpeg'
+    publishVersion = '1.1.8'
+    desc = 'a tiny ffmpeg for android'
+    website = ''
 }

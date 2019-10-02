@@ -20,7 +20,9 @@ public class FFmpeg implements FFbinaryInterface {
 
     private static FFmpeg instance = null;
 
-    private FFdownloadFileInterface fdownloadFileInterface;
+    private FFcheckFileListener fFcheckFileListener;
+
+    private String prefix;
 
     private FFmpeg(FFbinaryContextProvider context) {
         this.context = context;
@@ -28,8 +30,8 @@ public class FFmpeg implements FFbinaryInterface {
     }
 
     @Override
-    public void FFmpegFileDownloadSuccessCallback(File downFile) {
-        Log.d("FFmpegFileDownloadSuccess: call back");
+    public void setFFmpegFile(File downFile) {
+        Log.d("call setFFmpegFile");
 
         SharedPreferences settings = context.provide().getSharedPreferences("ffmpeg_prefs", Context.MODE_PRIVATE);
         File ffmpeg = FileUtils.getFFmpeg(context.provide());
@@ -39,18 +41,24 @@ public class FFmpeg implements FFbinaryInterface {
             settings.edit().putInt(KEY_PREF_VERSION, VERSION).apply();
         } catch (IOException e) {
             Log.d("copy file fail");
-            this.fdownloadFileInterface.copyFileFail(e);
+            if (this.fFcheckFileListener != null) {
+                this.fFcheckFileListener.onCopyFileFail(e);
+            }
         }
         if (checkFFmpeg(ffmpeg)) {
-            this.fdownloadFileInterface.allFinish();
+            if (this.fFcheckFileListener != null) {
+                this.fFcheckFileListener.onAllFinish();
+            }
         }
         else {
-            this.fdownloadFileInterface.verifyFileFail();
+            if (this.fFcheckFileListener != null) {
+                    this.fFcheckFileListener.onVerifyFileFail();
+                }
         }
     }
 
-    public void setFdownloadFileInterface(FFdownloadFileInterface fdownloadFileInterface) {
-        this.fdownloadFileInterface = fdownloadFileInterface;
+    public void setFFcheckFileListener(FFcheckFileListener fFcheckFileListener) {
+        this.fFcheckFileListener = fFcheckFileListener;
     }
 
     public static FFmpeg getInstance(final Context context) {
@@ -87,7 +95,6 @@ public class FFmpeg implements FFbinaryInterface {
 
         // check if ffmpeg file exists
         if (!ffmpeg.exists() || version < VERSION) {
-            String prefix;
             switch (cpuArch) {
                 case ARMv7:
                     prefix = "armv7-a/";
@@ -106,7 +113,7 @@ public class FFmpeg implements FFbinaryInterface {
                     return false;
             }
             Log.d("file does not exist, creating it...");
-            fdownloadFileInterface.startDownload(prefix, this);
+            //fdownloadFileInterface.startDownload(prefix, this);
             Log.d("isSupported: call download");
             return false;
         }
@@ -182,9 +189,6 @@ public class FFmpeg implements FFbinaryInterface {
     }
 
     private boolean checkFFmpeg(File ffmpeg) {
-        // check ffmpeg file MD5
-        //TODO necessary？
-
         // check if ffmpeg can be executed
         if (!ffmpeg.canExecute()) {
             // try to make executable
@@ -214,5 +218,13 @@ public class FFmpeg implements FFbinaryInterface {
 
         Log.d("ffmpeg is ready!");
         return true;
+    }
+
+    /**
+    * <p>Return the  prefix of device's cpu arch.(The type of FFmpeg we need)</p>
+     * <b>Must after call isFFmpegExist(), or you will get nothing</b>
+    * */
+    public String getPrefix() {
+        return prefix;
     }
 }

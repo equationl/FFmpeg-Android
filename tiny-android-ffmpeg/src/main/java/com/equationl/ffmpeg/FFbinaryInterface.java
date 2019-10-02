@@ -72,11 +72,11 @@ public interface FFbinaryInterface {
     void setTimeout(long timeout);
 
     /**
-     * callback when download success
+     * set the download ffmpeg to use
      *
      * @param file the file of download
      * */
-    void FFmpegFileDownloadSuccessCallback(File file);
+    void setFFmpegFile(File file);
 
     /**
     * Checks if FF binary is exist
