@@ -6,7 +6,7 @@ Execute FFmpeg commands with ease in your Android project.
 
 [中文说明](https://github.com/equationl/FFmpeg-Android/blob/master/README_ZH.md)
 
-##Features
+## Features
 - Smaller package, only 21kb in size
 - Support for most CPU architectures (including 64-bit)
 -- armv7
@@ -18,15 +18,15 @@ Execute FFmpeg commands with ease in your Android project.
 - The developer or user can choose to download the binary suitable for their device.
 - Because the library itself does not contain binaries, you can bypass 64-bit detection on Google Play.
 
-##Usage
+## Usage
 ### Getting Started
 Include the dependency
 ```gradle 
 implementation 'com.equationl.ffmpeg:tiny-android-ffmpeg:1.1.8'
  ```
 _Replace the 1.1.8 to latest version_
-###Start using
-####1.Get Rady
+### Start using
+#### 1.Get Rady
 
 Remember to check if the device is supported before use and if the binary exists and is available.
 1.Check for support：
@@ -62,7 +62,7 @@ ffmpeg.setFFcheckFileListener(new FFcheckFileListener() {
         });
 ``` 
 
-####2.Using
+#### 2.Using
 In this sample code we will run the ffmpeg -version command.
 ```java
 FFmpeg ffmpeg = FFmpeg.getInstance(context);
@@ -101,7 +101,7 @@ _NOTE: This will result in `onFailure` being called instead of `onSuccess`._
 
 
 
-####3.Sample
+#### 3.Sample
 ```java 
 FFmpeg ffmpeg = FFmpeg.getInstance(this);
 ffmpeg.setFFcheckFileListener(new FFcheckFileListener() {
@@ -163,7 +163,7 @@ private void runFFmpeg() {
 
     }
 ```
-##Thanks
+## Thanks
 This project fork from [formatBCE](https://github.com/formatBCE/FFmpeg-Android)
 formatBCE fork from [bravobit](https://github.com/bravobit/FFmpeg-Android)
 bravobit fork from[WritingMinds](https://github.com/WritingMinds/ffmpeg-android-java)
