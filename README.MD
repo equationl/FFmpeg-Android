@@ -4,7 +4,7 @@
 This is a tiny FFmpeg project fork from  [formatBCE](https://github.com/formatBCE/FFmpeg-Android).
 Execute FFmpeg commands with ease in your Android project.
 
-[中文说明](https://github.com/equationl/FFmpeg-Android/blob/master/README_ZH.md)
+[中文说明](./README_ZH.md)
 
 ## Features
 - Smaller package, only 21kb in size

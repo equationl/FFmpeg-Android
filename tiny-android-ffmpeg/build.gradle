@@ -40,7 +40,7 @@ publish {
     userOrg = 'likehide'
     groupId = 'com.equationl.ffmpeg'
     artifactId = 'tiny-android-ffmpeg'
-    publishVersion = '1.1.8'
+    publishVersion = '1.1.9'
     desc = 'a tiny ffmpeg for android'
     website = ''
 }
