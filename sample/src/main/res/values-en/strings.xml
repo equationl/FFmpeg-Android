@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FFmpeg</string>
+    <string name="command_textview_command_text">" You only need to enter the parameters, without adding ffmpeg. Each command is separated by a space. Do not include spaces in the path of the input / output file, otherwise the command will not be recognized correctly!"</string>
+    <string name="command_edit_text">-version</string>
+    <string name="toast_ffmpeg_not_support">The device does not support it!</string>
+
+    <string name="downloadActivity_dialog_askDownload_title">Download data</string>
+    <string name="downloadActivity_dialog_askDownload_message">To use this feature, you need to download an additional data packet that does not exceed 20MB. Do you want to download it now?</string>
+    <string name="command_btn_run_text">Run</string>
+    <string name="downloadActivity_dialog_askDownload_btn_cancel">NO</string>
+    <string name="downloadActivity_dialog_askDownload_btn_ok">Download</string>
+    <string name="downloadActivity_toast_downloadData_not_download">If you do not download the data package, it will not work properly!</string>
+
+
+</resources>

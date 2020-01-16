@@ -21,7 +21,7 @@
 导入项目
 ```gradle 
 implementation 'com.equationl.ffmpeg:tiny-android-ffmpeg:1.1.8'
- ```
+```
 _请将版本号替换为上方图片所示的最新版本_
 ### 开始使用
 #### 1.准备工作
@@ -35,9 +35,12 @@ ffmpeg.isSupported()
 ffmpeg.isFFmpegExist()
 ``` 
 3.如果不存在则需要自行下载
+
+**你可以在 [这里](https://github.com/formatBCE/FFmpeg-Android/tree/master/android-ffmpeg/src/main/assets) 找到所有ffmpeg的二进制文件，请将这些文件下载后上传到你自己的服务器上，然后自己在项目中实现下载文件。**
+
 4.将下载好的文件应用到库中
 ```java 
-ffmpeg.setFFmpegFile(downFile);
+ffmpeg.setFFmpegFile(file);
 ``` 
 5.应用二进制文件时的回调
 ```java 
@@ -63,7 +66,8 @@ ffmpeg.setFFcheckFileListener(new FFcheckFileListener() {
 下面的例子将会运行 ffmpeg -version 命令
 ```java
 FFmpeg ffmpeg = FFmpeg.getInstance(context);
-  // to execute "ffmpeg -version" command you just need to pass "-version"
+  // to execute "ffmpeg -version" command you just need to input "-version"
+String[] cmd = {"-version"};
 ffmpeg.execute(cmd, new ExecuteBinaryResponseHandler() {
 
     @Override
@@ -98,69 +102,13 @@ _注意：这样做的话，将会调用 `onFailure`  而非`onSuccess`._
 
 
 #### 3.完整示例
-```java 
-FFmpeg ffmpeg = FFmpeg.getInstance(this);
-ffmpeg.setFFcheckFileListener(new FFcheckFileListener() {
-            @Override
-            public void onCopyFileFail(IOException e) {
-                Log.e(e);
-            }
+完整示例请查看项目的 [demo](https://github.com/equationl/Tiny-FFmpeg-Android/tree/master/sample/src/main/java/com/equationl/ffmpeg/example/MainActivity.java)
 
-            @Override
-            public void onAllFinish() {
-
-            }
-
-            @Override
-            public void onVerifyFileFail() {
-                Log.e("check file fail!");
-            }
-        });
-if (ffmpeg.isSupported()) {
-            //check if support
-            if (ffmpeg.isFFmpegExist()) {
-                //check if ffmpeg file exist
-                //all good, begin use
-                runFFmpeg();
-            }
-            else {
-                //begin download ffmpeg
-                String prefix = ffmpeg.getPrefix();
-                File downFile = downloadFile(prefix);
-                //apply download file to application
-                ffmpeg.setFFmpegFile(downFile);
-                //just for case, check again
-                if (ffmpeg.isFFmpegExist()) {
-                    //all good, use it
-                    runFFmpeg();
-                }
-            }
-        }
-        else {
-            //well, not support
-            Log.e("ffmpeg not support!");
-        }
-    }
-```
-runFFmpeg()：
-```java
-private void runFFmpeg() {
-        fFmpeg.execute(new String[]{"-version"}, new ExecuteBinaryResponseHandler() {
-            @Override
-            public void onSuccess(String message) {
-                Timber.d(message);
-            }
-
-            @Override
-            public void onProgress(String message) {
-                Timber.d(message);
-            }
-        });
-
-    }
-```
 ## 鸣谢
 该项目 Fork 自 [formatBCE](https://github.com/formatBCE/FFmpeg-Android)
+
 formatBCE Fork自 [bravobit](https://github.com/bravobit/FFmpeg-Android)
+
 bravobit Fork 自[WritingMinds](https://github.com/WritingMinds/ffmpeg-android-java)
+
 感谢上面各位为开源做出的贡献！

@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">FFmpeg</string>
+    <string name="command_textview_command_text">您只需要输入参数即可，无需加上 ffmpeg 每个命令使用空格分割。  请勿在输入/输出文件的路径中包含空格，否则将无法正确识别命令！</string>
+    <string name="command_edit_text">-version</string>
+    <string name="command_btn_run_text">执行</string>
+    <string name="toast_ffmpeg_not_support">设备不支持！</string>
+
+    <string name="downloadActivity_dialog_askDownload_title">下载数据</string>
+    <string name="downloadActivity_dialog_askDownload_message">使用该功能需要下载不超过20MB的额外数据包，是否立即下载？</string>
+    <string name="downloadActivity_dialog_askDownload_btn_cancel">否</string>
+    <string name="downloadActivity_dialog_askDownload_btn_ok">下载</string>
+    <string name="downloadActivity_toast_downloadData_not_download">如果不下载数据包将无法正常使用！</string>
+
 </resources>

@@ -23,7 +23,7 @@ Execute FFmpeg commands with ease in your Android project.
 Include the dependency
 ```gradle 
 implementation 'com.equationl.ffmpeg:tiny-android-ffmpeg:1.1.8'
- ```
+```
 _Replace the 1.1.8 to latest version_
 ### Start using
 #### 1.Get Rady
@@ -38,9 +38,13 @@ ffmpeg.isSupported()
 ffmpeg.isFFmpegExist()
 ``` 
 3.If not exist, you need download by yourself
+
+**You can get all ffmpeg binary file at [here](https://github.com/formatBCE/FFmpeg-Android/tree/master/android-ffmpeg/src/main/assets), 
+Please download these files and upload them to your own server, and then implement the download files in your project.**
+
 4.Apply the download file to project
 ```java 
-ffmpeg.setFFmpegFile(downFile);
+ffmpeg.setFFmpegFile(file);
 ``` 
 5.The callback of apply file
 ```java 
@@ -66,7 +70,8 @@ ffmpeg.setFFcheckFileListener(new FFcheckFileListener() {
 In this sample code we will run the ffmpeg -version command.
 ```java
 FFmpeg ffmpeg = FFmpeg.getInstance(context);
-  // to execute "ffmpeg -version" command you just need to pass "-version"
+  // to execute "ffmpeg -version" command you just need to input "-version"
+String[] cmd = {"-version"};
 ffmpeg.execute(cmd, new ExecuteBinaryResponseHandler() {
 
     @Override
@@ -102,68 +107,12 @@ _NOTE: This will result in `onFailure` being called instead of `onSuccess`._
 
 
 #### 3.Sample
-```java 
-FFmpeg ffmpeg = FFmpeg.getInstance(this);
-ffmpeg.setFFcheckFileListener(new FFcheckFileListener() {
-            @Override
-            public void onCopyFileFail(IOException e) {
-                Log.e(e);
-            }
+Please check [demo](https://github.com/equationl/Tiny-FFmpeg-Android/tree/master/sample/src/main/java/com/equationl/ffmpeg/example/MainActivity.java)
 
-            @Override
-            public void onAllFinish() {
-
-            }
-
-            @Override
-            public void onVerifyFileFail() {
-                Log.e("check file fail!");
-            }
-        });
-if (ffmpeg.isSupported()) {
-            //check if support
-            if (ffmpeg.isFFmpegExist()) {
-                //check if ffmpeg file exist
-                //all good, begin use
-                runFFmpeg();
-            }
-            else {
-                //begin download ffmpeg
-                String prefix = ffmpeg.getPrefix();
-                File downFile = downloadFile(prefix);
-                //apply download file to application
-                ffmpeg.setFFmpegFile(downFile);
-                //just for case, check again
-                if (ffmpeg.isFFmpegExist()) {
-                    //all good, use it
-                    runFFmpeg();
-                }
-            }
-        }
-        else {
-            //well, not support
-            Log.e("ffmpeg not support!");
-        }
-    }
-```
-runFFmpeg()：
-```java
-private void runFFmpeg() {
-        fFmpeg.execute(new String[]{"-version"}, new ExecuteBinaryResponseHandler() {
-            @Override
-            public void onSuccess(String message) {
-                Timber.d(message);
-            }
-
-            @Override
-            public void onProgress(String message) {
-                Timber.d(message);
-            }
-        });
-
-    }
-```
 ## Thanks
 This project fork from [formatBCE](https://github.com/formatBCE/FFmpeg-Android)
+
 formatBCE fork from [bravobit](https://github.com/bravobit/FFmpeg-Android)
+
 bravobit fork from[WritingMinds](https://github.com/WritingMinds/ffmpeg-android-java)
+
