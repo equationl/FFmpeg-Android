@@ -3,6 +3,8 @@
 
 这是一个 Fork 自 [formatBCE](https://github.com/formatBCE/FFmpeg-Android) 的 轻量级FFmpeg 库。
 使你可以更轻松的在安卓项目中使用 FFmpeg 命令。
+## 注意
+如果 targetSdkVersion 为 29(Android 10)，将会报错 **Permission denied**
 
 ## 特性
 - 更小的集成包，仅仅只有21kb的大小。
@@ -26,6 +28,7 @@ _请将版本号替换为上方图片所示的最新版本_
 ### 开始使用
 #### 1.准备工作
 使用前切记检查是否支持该设备，并且二进制是否存在且可用。
+
 1.检查是否支持：
 ```java 
 ffmpeg.isSupported()
