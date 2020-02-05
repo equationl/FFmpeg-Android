@@ -6,6 +6,9 @@ Execute FFmpeg commands with ease in your Android project.
 
 [中文说明](./README_ZH.md)
 
+## Note
+It will be get **Permission denied** error in targetSdkVersion 29(Android 10)
+
 ## Features
 - Smaller package, only 21kb in size
 - Support for most CPU architectures (including 64-bit)
